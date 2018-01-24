@@ -5,7 +5,7 @@ import scipy.io
 import matplotlib.pyplot as plt
 
 #Get data
-data = scipy.io.readsav('signal.sav')
+data = scipy.io.readsav('data/signal.sav')
 signal = data.sig
 N = len(signal)
 
@@ -20,11 +20,11 @@ plt.figure(2)
 plt.clf()
 
 for k in [1, 2, 4, 8, 16]:
-	#Spectrum
-	spectrum = np.fft.fft(signal[::k])
-	
-	# Plots spectrum
-	plt.plot(np.arange(-64/k, 64/k, dtype = 'float')/128, np.abs(spectrum)**2, '+')
+    #Spectrum
+    spectrum = np.fft.fft(signal[::k])
+
+    # Plots spectrum
+    plt.plot(np.arange(-64/k, 64/k, dtype = 'float')/128, np.abs(spectrum)**2, '+')
 
 
 # Periodised

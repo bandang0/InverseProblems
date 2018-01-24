@@ -8,12 +8,15 @@ import pbinv
 #Globals
 f = lambda t: np.sin(t)/(1 + np.exp(t)) + np.sin(3 * t)/(1 + np.exp(-t))
 
-NAMES = ['SigPiano.sav', 'SigDop.sav', 'Mallat.sav', 'SigTest.sav']
+NAMES = ['data/SigPiano.sav',
+    'data/SigDop.sav',
+    'data/Mallat.sav',
+    'data/SigTest.sav']
+SNAMES = {'data/Mallat.sav': 'mallat',
+	'data/SigDop.sav': 'dop',
+	'data/SigTest.sav': 'signal',
+	'data/SigPiano.sav': 'piano'}
 
-SNAMES = {'Mallat.sav': 'mallat',
-	'SigDop.sav': 'dop',
-	'SigTest.sav': 'signal',
-	'SigPiano.sav': 'piano'}
 signals = {}
 fes = {}
 lengths = {}
@@ -60,7 +63,7 @@ for i, name in enumerate(NAMES[:1]):
 
 	# Obtain the windowed data
 	matrix = pbinv.slice(signals[name], K, K)
-	G = np.array([pbinv.gaussian_win(K) for i in range(N/K)])
+	G = np.array([pbinv.gaussian_win(K) for i in range(N // K)])
 	G = np.transpose(G)
 	gaussian_matrix = G * matrix
 	spectrum_raw = np.fft.fft(gaussian_matrix, axis = 0)
@@ -71,15 +74,15 @@ for i, name in enumerate(NAMES[:1]):
 
 	# Rebuild slices from transformed
 	rebuilt_gaussian_matrix = np.fft.ifft(np.load(name + "spectrum_raw.npy"))
-	invG = np.array([inv_gaussian_win(K) for i in range(N/K)])
+	invG = np.array([inv_gaussian_win(K) for i in range(N // K)])
 	invG = np.transpose(invG)
 	rebuilt_matrix = invG * rebuilt_gaussian_matrix
 	print("{}: {}, {}".format(name,
 		np.shape(matrix), np.shape(rebuilt_matrix)))
 
 	# Write data from slices
-	rebuilt_data = [rebuilt_matrix[i][j] for i in range(K) for j in range(N/K)]
-	
+	rebuilt_data = [rebuilt_matrix[i][j] for i in range(K) for j in range(N // K)]
+
 	# Plot Data
 	plt.figure(3 * i)
 	plt.clf()
@@ -105,7 +108,3 @@ for i, name in enumerate(NAMES[:1]):
 	plt.xlabel('Time (s)')
 	plt.ylabel('Frequency (Hz)')
 plt.show()
-
-
-
-

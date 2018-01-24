@@ -8,11 +8,14 @@ import pbinv
 #Globals
 f = lambda t: np.sin(t)/(1 + np.exp(t)) + np.sin(3 * t)/(1 + np.exp(-t))
 
-NAMES = ['SigPiano.sav', 'SigDop.sav', 'Mallat.sav', 'SigTest.sav']
-SNAMES = {'Mallat.sav': 'mallat',
-	'SigDop.sav': 'dop',
-	'SigTest.sav': 'signal',
-	'SigPiano.sav': 'piano'}
+NAMES = ['data/SigPiano.sav',
+    'data/SigDop.sav',
+    'data/Mallat.sav',
+    'data/SigTest.sav']
+SNAMES = {'data/Mallat.sav': 'mallat',
+	'data/SigDop.sav': 'dop',
+	'data/SigTest.sav': 'signal',
+	'data/SigPiano.sav': 'piano'}
 
 signals = {}
 fes = {}
@@ -43,7 +46,7 @@ def plot(K, P):
 		matrix = pbinv.slice(signals[name], K, P)
 		spectrum = np.fft.fft(matrix, axis = 0)
 		spectrum = pbinv.normspec(np.abs(spectrum)**2)
-		
+
 		# Plot Data
 		plt.figure(2 * i)
 		plt.clf()
@@ -62,3 +65,4 @@ def plot(K, P):
 		plt.ylabel('Frequency (Hz)')
 
 	plt.show()
+plot(K, P)

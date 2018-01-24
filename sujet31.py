@@ -6,7 +6,7 @@ import pbinv
 import matplotlib.pyplot as plt
 
 # Globals
-NAME = 'PicPhotographe.sav'
+NAME = 'data/PicPhotographe.sav'
 signalb = scipy.io.readsav(NAME).data
 signal0 = scipy.io.readsav(NAME).imavrai
 
@@ -23,8 +23,9 @@ rebuilt_image = np.fft.ifft2(gaussian * transformb)
 
 # Plot photos
 plt.figure(1)
-plt.imshow(signalb, aspect = 'auto', extent = (0, N - 1,
-						0, N - 1))
+plt.imshow(signalb,
+    aspect = 'auto',
+    extent = (0, N - 1, 0, N - 1))
 plt.title('Data')
 plt.xlabel('X (px)')
 plt.ylabel('Y (px)')
@@ -36,7 +37,7 @@ plt.ylabel('Y (px)')
 
 # Plot Fourier Transforms
 plt.figure(4)
-plt.imshow(transformb, aspect = 'auto',
+plt.imshow(np.abs(transformb), aspect = 'auto',
 	extent = (frang[0], frang[-1], frang[0], frang[-1]))
 plt.title('Fourier Data')
 plt.xlabel('RFrequency')

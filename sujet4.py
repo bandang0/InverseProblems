@@ -1,11 +1,3 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 11 11:34:40 2018
-
-@author: rduque
-"""
-
 import numpy as np
 import scipy.io
 import scipy.signal
@@ -16,19 +8,19 @@ def mplot(x, title = 'Plot'):
     plt.figure(5)
     plt.imshow(x, aspect = 'auto', origin = 'lower')
     plt.show()
-    
-    
-signal1 = scipy.io.readsav('donnee1.sav').data
-photo1 = scipy.io.readsav('donnee1.sav').photo
-fftker1 = scipy.io.readsav('donnee1.sav').fftker # normalized kernel
 
-signal2 = scipy.io.readsav('donnee2.sav').data
-photo2 = scipy.io.readsav('donnee2.sav').photo
-ker2 = scipy.io.readsav('donnee3.sav').ker # normalized kernel
 
-signal3 = scipy.io.readsav('donnee3.sav').data
-photo3 = scipy.io.readsav('donnee3.sav').photo
-ker3 = scipy.io.readsav('donnee3.sav').ker # normalized kernel
+signal1 = scipy.io.readsav('data/donnee1.sav').data
+photo1 = scipy.io.readsav('data/donnee1.sav').photo
+fftker1 = scipy.io.readsav('data/donnee1.sav').fftker # normalized kernel
+
+signal2 = scipy.io.readsav('data/donnee2.sav').data
+photo2 = scipy.io.readsav('data/donnee2.sav').photo
+ker2 = scipy.io.readsav('data/donnee3.sav').ker # normalized kernel
+
+signal3 = scipy.io.readsav('data/donnee3.sav').data
+photo3 = scipy.io.readsav('data/donnee3.sav').photo
+ker3 = scipy.io.readsav('data/donnee3.sav').ker # normalized kernel
 
 ########### FILTRAGE INVERSE ##################"#
 '''
@@ -39,7 +31,7 @@ for i in range(250):
     for j in range(250):
         if fftker1[i][j] > 0.05:
             signal1_fft[i][j] = signal1_fft[i][j]/fftker1[i][j]
-            
+
 
 signal1_inv = np.fft.ifft2(signal1_fft)
 '''
